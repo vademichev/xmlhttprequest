@@ -1,0 +1,57 @@
+    <html>  
+    <head>  
+    <meta http-equiv="Content-Type" content="text/html; Charset=UTF-8">  
+    <script>  
+        function showContent(link) {  
+      
+            var cont = document.getElementById('contentBody'); // Получение элементов со странички  
+      
+            var http = new XMLHttpRequest(); // Создаем обьект XMLHttpRequest
+            if( http )   // Если он сконструирован удачно 
+            {  
+                http.open('get', link); //Устанавливаем связь с сервером по адресу link
+ 
+ // Вариант Б - http.onreadystatechange = StateChange;
+                http.onreadystatechange = function ()  // Устанавливаем обработчик
+                {  // Изменения статуса запроса         // Анонимная функция.
+                    if(http.readyState == 4)   
+                    {  
+                        cont.innerHTML = http.responseText;  
+                    }  
+                }  
+                http.send(null);      
+            }  
+            else   
+            {  
+                document.location = link;  
+            }  
+        }  
+        /* function StateChange()
+		{ if(this.readyState == 4)   
+                    {  
+                        cont.innerHTML = http.responseText;  
+                    } 
+		}*/
+        
+        
+    </script>  
+    </head>  
+      
+    <body>  
+      
+        <p>Какую страницу желаете открыть?</p>  
+          
+        <form>  
+            <input onclick="showContent('page1.html')" type="button" value="Страница 1">  
+            <input onclick="showContent('page2.html')" type="button" value="Страница 2">  
+        </form>  
+          
+        <div id="contentBody">  
+        </div>  
+      
+        <div id="loading" style="display: none">  
+        Идет загрузка...  
+        </div>  
+          
+    </body>  
+    </html>  
